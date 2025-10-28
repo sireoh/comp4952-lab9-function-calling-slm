@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Function Calling with Semantic Kernel";
+}
+<div class="text-center">
+    <h3 class="display-6">@ViewData["Title"]</h3>
+    <form method="post">
+        <input type="text" name="prompt" size="80" required />
+        <input type="submit" value="Submit" />
+    </form>
+    <div style="text-align: left">
+        <h5>Example prompts:</h5>
+        <p>Which school does Mat Tan go to?</p>
+        <p>Which school has the most students?</p>
+        <p>Which school has the least students?</p>
+        <p>Get the count of students in each school.</p>
+        <p>How many students are there in the school of Mining?</p>
+        <p>What is the ID of Jan Fry and which school does she go to?</p>
+        <p>Which students belong to the school of Business? Respond only in JSON format.</p>
+        <p>Which students in the school of Nursing have their first or last name start with the letter 'J'?</p>
+        <hr />
+        <h5>New prompts:</h5>
+        <p>Which students are older than 20 years?</p>
+        <p>Which students are NOT older than 20 years?</p>
+        <p>Which students will be celebrating their birthdays in the next two months?</p>
+        <p>Which students are born in the month of February?</p>
+    </div>
+    @if (Model.Reply != null)
+    {
+        <p class="alert alert-success">@Model.Reply</p>
+    }
+</div>
