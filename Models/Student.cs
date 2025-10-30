@@ -2,13 +2,16 @@ using System;
 
 namespace EfFuncCallSK.Models;
 
-public class Student {
+public class Student
+{
    public int StudentId { get; set; }
    public string? FirstName { get; set; }
    public string? LastName { get; set; }
    public string? School { get; set; }
- 
-   public override string ToString() {
-      return $"Student ID: {StudentId}, First Name: {FirstName}, Last Name: {LastName}, School: {School}";
+   public DateTime? DateOfBirth { get; set; }
+
+   public override string ToString()
+   {
+      return $"Student ID: {StudentId}, First Name: {FirstName}, Last Name: {LastName}, School: {School}, Date of Birth: {DateOfBirth?.ToString("yyyy-MM-dd")}";
    }
 }
