@@ -68,4 +68,58 @@ public class StudentPlugin
     else
       return JsonSerializer.Serialize(students);
   }
+
+  [KernelFunction, Description("Get the older students by a specified limit.")]
+  static public string? GetOlderStudents(
+    [Description("age is the age limit to filter students by.")]
+    int age
+  )
+  {
+    // DateOfBirth is a DateTime object (nullable) — ensure it's present before accessing Value
+    var students = Utils.GetDbContext().Students
+      .Where(s => s.DateOfBirth.HasValue && DateTime.Now.Year - s.DateOfBirth.Value.Year > age).ToList();
+
+    return JsonSerializer.Serialize(students);
+  }
+
+  [KernelFunction, Description("Get the younger students by a specified limit.")]
+  static public string? GetYoungerStudents(
+    [Description("age is the age limit to filter students by.")]
+    int age
+  )
+  {
+    // DateOfBirth is a DateTime object (nullable) — ensure it's present before accessing Value
+    var students = Utils.GetDbContext().Students
+      .Where(s => s.DateOfBirth.HasValue && DateTime.Now.Year - s.DateOfBirth.Value.Year < age).ToList();
+
+    return JsonSerializer.Serialize(students);
+  }
+
+  [KernelFunction, Description("Get students that in the next x months")]
+  static public string? GetStudentsBirthdayUpcomingMonths(
+    [Description("month is amount of months from the current month to filter students by.")]
+    int month
+  )
+  {
+    // DateOfBirth is a DateTime object (nullable) — ensure it's present before accessing Value
+    var students = Utils.GetDbContext().Students
+      .Where(s => s.DateOfBirth.HasValue &&
+        (s.DateOfBirth.Value.Month >= DateTime.Now.Month) &&
+        (s.DateOfBirth.Value.Month <= DateTime.Now.Month + month)).ToList();
+
+    return JsonSerializer.Serialize(students);
+  }
+
+  [KernelFunction, Description("Get students that in the next x months")]
+  static public string? GetStudentsInCertainMonth(
+    [Description("month is the month to filter students by.")]
+    int month
+  )
+  {
+    // DateOfBirth is a DateTime object (nullable) — ensure it's present before accessing Value
+    var students = Utils.GetDbContext().Students
+      .Where(s => s.DateOfBirth.HasValue && s.DateOfBirth.Value.Month == month).ToList();
+
+    return JsonSerializer.Serialize(students);
+  }
 }
